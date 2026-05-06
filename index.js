@@ -23,14 +23,9 @@ app.use("/trust", trustRouter);
 app.use("/access", accessRouter);
 app.use("/logs", logsRouter);
 app.use("/stats", statsRoutes);
-app.get("/", (req, res) => {
-  res.send("Welcome to LifeGraph");
-});
 
-connectDB().then(() => {
-    app.listen(PORT, () => {
-        console.log(`Server running on port http://localhost:${PORT}`);
-    });
-}).catch((err) => {
+
+connectDB().catch((err) => {
     console.log("Failed to connect to database", err);
 });
+export default app;
