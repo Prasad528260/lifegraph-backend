@@ -1,15 +1,15 @@
 import express from "express";
 import dotenv from "dotenv";
-import connectDB from "./config/db.js";
-import app from "./app.js";
-import authRouter from "./routes/authRouter.js";
-import capsuleRouter from "./routes/capsuleRouter.js";
-import graphRouter from "./routes/graphRouter.js";
-import institutionRouter from "./routes/institutionRouter.js";
-import trustRouter from "./routes/trustRouter.js";
-import accessRouter from "./routes/accessRouter.js";
-import logsRouter from "./routes/logsRouter.js";
-import statsRoutes from "./routes/statsRouter.js";
+import connectDB from "./src/config/db.js";
+import app from "./src/app.js";
+import authRouter from "./src/routes/authRouter.js";
+import capsuleRouter from "./src/routes/capsuleRouter.js";
+import graphRouter from "./src/routes/graphRouter.js";
+import institutionRouter from "./src/routes/institutionRouter.js";
+import trustRouter from "./src/routes/trustRouter.js";
+import accessRouter from "./src/routes/accessRouter.js";
+import logsRouter from "./src/routes/logsRouter.js";
+import statsRoutes from "./src/routes/statsRouter.js";
 
 dotenv.config();
 const PORT = process.env.PORT || 5000;
@@ -23,6 +23,9 @@ app.use("/trust", trustRouter);
 app.use("/access", accessRouter);
 app.use("/logs", logsRouter);
 app.use("/stats", statsRoutes);
+app.get("/", (req, res) => {
+  res.send("Welcome to LifeGraph");
+});
 
 connectDB().then(() => {
     app.listen(PORT, () => {

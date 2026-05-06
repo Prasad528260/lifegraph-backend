@@ -19,7 +19,7 @@ export const getAllLogs = async (req, res) => {
     } else {
       // admin sees only their institution logs
       const adminInstitutions = await Institution.find({
-        createdBy: req.user.id,
+        createdBy: req.user._id,
       }).select("_id");
 
       const institutionIds = adminInstitutions.map((inst) => inst._id);
@@ -84,7 +84,7 @@ export const getInstitutionLogs = async (req, res) => {
 // ─────────────────────────────────────────
 export const getUserLogs = async (req, res) => {
   try {
-    const requestedUserId = req.params.userId;
+    const requestedUserId = req.user._id;
 
     // superadmin can see anyone
     // admin can see anyone
@@ -92,7 +92,7 @@ export const getUserLogs = async (req, res) => {
     if (
       req.user.role !== "superadmin" &&
       req.user.role !== "admin" &&
-      req.user.id !== requestedUserId
+      req.user._id.toString() !== requestedUserId.toString()
     ) {
       return res.status(403).json({
         message: "You can only view your own access logs",

@@ -13,7 +13,7 @@ const logsRouter = express.Router();
 logsRouter.get("/", userAuth, getAllLogs);
 
 // user sees their own logs, admin sees anyone's
-logsRouter.get("/user/:userId", userAuth, getUserLogs);
+logsRouter.get("/user", userAuth, getUserLogs);
 
 // admin sees institution specific logs
 logsRouter.get("/institution/:institutionId", userAuth, adminOnly, getInstitutionLogs);
